@@ -3,10 +3,11 @@ package com.projectmanager.projectmanager.Entities;
 import java.sql.Date;
 import java.time.Instant;
 
+import jakarta.annotation.PostConstruct;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="\"Tasks\"", schema="projects_db_schema")
+@Table(name="tasks", schema="projects_db_schema")
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,6 +37,12 @@ public class Task {
     public Task(String title, String description) {
         this.title = title;
         this.description = description;
+    }
+
+    @PostConstruct
+    public void init() {
+        System.out.println("Table: " + getClass().getAnnotation(Table.class).name());
+        System.out.println("Schema: " + getClass().getAnnotation(Table.class).schema());
     }
 
     public Long getTaskId() {

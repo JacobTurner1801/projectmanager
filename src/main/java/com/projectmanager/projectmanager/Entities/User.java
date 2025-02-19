@@ -3,10 +3,11 @@ package com.projectmanager.projectmanager.Entities;
 import java.time.Instant;
 import java.util.Objects;
 
+import jakarta.annotation.PostConstruct;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="\"Users\"", schema="projects_db_schema")
+@Table(name="users", schema="projects_db_schema")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,6 +33,12 @@ public class User {
         this.name = name;
         this.passwordHash = passwordHash;
         this.email = email;
+    }
+
+    @PostConstruct
+    public void init() {
+        System.out.println("Table: " + getClass().getAnnotation(Table.class).name());
+        System.out.println("Schema: " + getClass().getAnnotation(Table.class).schema());
     }
 
     // Getters and setters (for all fields)

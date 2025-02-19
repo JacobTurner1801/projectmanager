@@ -4,10 +4,11 @@ import java.sql.Date;
 import java.time.Instant;
 import java.util.Objects;
 
+import jakarta.annotation.PostConstruct;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="\"Projects\"", schema="projects_db_schema")
+@Table(name="projects", schema="projects_db_schema")
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,6 +33,12 @@ public class Project {
         this.name = name;
         this.description = description;
         this.status = status;
+    }
+
+    @PostConstruct
+    public void init() {
+        System.out.println("Table: " + getClass().getAnnotation(Table.class).name());
+        System.out.println("Schema: " + getClass().getAnnotation(Table.class).schema());
     }
 
     public Long getProjectId() {
