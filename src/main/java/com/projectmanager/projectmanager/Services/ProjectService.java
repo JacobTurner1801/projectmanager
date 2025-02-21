@@ -40,4 +40,18 @@ public class ProjectService {
     Optional<List<Project>> getProjectsCreatedByUserId(Long createdById) {
         return projectRepository.findByCreatedByUserId(createdById);
     }
+
+    public void deleteProject(Long id) {
+        projectRepository.deleteById(id);
+    }
+
+    public Project updateProject(Long id, Project updatedProject) {
+        return projectRepository.findById(id)
+            .map(existingProject -> {
+                existingProject.setName(updatedProject.getName());
+                existingProject.setDescription(updatedProject.getDescription());
+                return projectRepository.save(existingProject);
+            })
+            .orElseThrow(() -> new RuntimeException("Project not found with id: " + id));
+    }
 }
