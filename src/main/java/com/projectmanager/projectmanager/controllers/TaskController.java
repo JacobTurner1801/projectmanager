@@ -19,7 +19,7 @@ public class TaskController {
     @Autowired
     private TaskService taskService;
 
-    @RequestMapping
+    @RequestMapping("/{id}")
     public ResponseEntity<Task> createTask(@RequestBody Task task) {
         Task newTask = taskService.createTask(task);
         return new ResponseEntity<>(newTask, HttpStatus.CREATED);
