@@ -20,7 +20,7 @@ public class ProjectController {
     @Autowired
     private ProjectService projectService;
 
-    @PostMapping("/register")
+    @PostMapping("/create")
     public ResponseEntity<Project> createProject(@RequestBody Project project) {
         Project createdProj = projectService.createProject(project);
         return new ResponseEntity<>(createdProj, HttpStatus.CREATED);
